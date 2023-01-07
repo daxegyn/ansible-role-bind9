@@ -1,0 +1,33 @@
+# named.conf.views
+
+# ACL Definitions
+{% if bind9_views|default() %}
+{%   for view in bind9_views %}
+acl {{ view.name }} {
+{% for subnet in view.subnets %}
+    {{ subnet }};
+{% endfor %}
+}; # end of acl definition for {{ view.name }}
+
+{% endfor %}
+{% endif %}
+# End of ACL Definitions
+
+# View Definitions
+{% if bind9_views|default() %}
+{% for view in bind9_views %}
+view {{ view.name }} {
+    match-clients { trusted; };
+    allow-recursion { any; };
+
+{% for zone in view.zones %}
+    zone "{{ zone }}" {
+        type primary;
+        file "{{ view.name }}/{{ zone }}";
+    }
+{% endfor %}
+}; # end of view definition for {{ view.name }}    
+
+{% endfor %}
+{% endif %}
+# End of View Definitions
