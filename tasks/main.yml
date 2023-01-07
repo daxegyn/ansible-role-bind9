@@ -81,10 +81,6 @@
     - bind9_authoritative|default()
     - bind9_views is defined
 
-- name: Debug above step
-  debug:
-    msg: "{{ bind9_authoritative }}"
-
 - name: create bind9 directory for master zone includes
   file:
     path: /etc/bind/zones/includes
@@ -92,9 +88,7 @@
     owner: root
     group: "{{ bind9_group }}"
     mode: 0755
-  when: bind9_authoritative|default()
-    
-    
+  when: bind9_authoritative|default()  
 
 - name: install bind9 authoritative include files
   template:
@@ -293,7 +287,6 @@
     - bind9_dnssec_notify_matrix
   tags:
     - role:bind9:dnssec
-
 
 - name: Send message to matrix via webhook
   uri:
