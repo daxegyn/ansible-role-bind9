@@ -45,6 +45,7 @@
   with_items:
     - named.conf.local
     - named.conf.options
+    - named.conf.views
   notify:
     - reload bind9
   # Variable register for eventual use outside the role
