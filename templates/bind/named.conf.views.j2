@@ -7,7 +7,7 @@ acl {{ view.name }} {
 {% for subnet in view.subnets %}
     {{ subnet }};
 {% endfor %}
-}; # end of acl definition for {{ view.name }}
+}; # End of ACL Definition for {{ view.name }}
 
 {% endfor %}
 {% endif %}
@@ -26,7 +26,7 @@ view {{ view.name }} {
         file "{{ view.name }}/{{ zone }}";
     }
 {% endfor %}
-}; # end of view definition for {{ view.name }}    
+}; # end of View Definition for {{ view.name }}    
 
 {% endfor %}
 {% endif %}
